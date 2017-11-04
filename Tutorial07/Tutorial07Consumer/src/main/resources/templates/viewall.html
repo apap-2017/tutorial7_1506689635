@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+    <link rel = "stylesheet" href = "/css/bootstrap.min.css"/>
+        <title>View All Students</title>
+    </head>
+    <body>
+    <div th:replace = "fragments/fragment :: header" ></div>
+    <div class="container-fluid">
+	        <h1>All Students</h1>
+	        <hr/>
+	        <div class= "table-responsive">
+		       	<table id="studentsTable" class="table table-hover" cellspacing="0" width="100%">
+		       		<thead>
+		       			<tr>
+		       				<th>No</th>
+		       				<th>NPM</th>
+		       				<th>Name</th>
+		       				<th>GPA</th>
+		       				<th>Cum Laude</th>
+		       				<th>Delete</th>
+		       				<th>Update</th>
+		       			</tr>
+		       		</thead>
+		       		<tbody>
+			       		<tr th:each="student,iterationStatus: ${students}">
+				            <td th:text="'' + ${iterationStatus.count}">No.</td>
+					       	<td th:text="${student.npm}">Student NPM</td>
+					       	<td th:text="${student.name}">Student Name</td>
+					       	<td th:text="${student.gpa}">Student GPA</td>
+					       	<td th:text="${student.gpa}>=3.49?'Cum Laude!':'Sangat Memuaskan!'"></td>
+					       	<td><a th:href = "'/student/delete/' + ${student.npm}" > Delete Data </a></td>
+			  				<td><a th:href = "'/student/update/' + ${student.npm}" > Update Data </a></td>
+				       	</tr>
+				    </tbody>
+				</table>
+			</div>
+			    <!-- <h3 th:if = "${student.gpa>=3.49}"> Cum Laude! </h3>
+				<h3 th:unless = "${student.gpa<=3.48}"> Sangat Memuaskan! </h3> -->
+			    
+			    <!-- <h3>Kuliah yang diambil</h3>
+				
+				<ul th:each="course,iterationStatus: ${student.courses}">
+					<li th:text="${course.name} + '-' + ${course.credits} + ' sks'" > Nama kuliah-X SKS </li>
+				</ul>
+				<hr/> -->
+	 		<script>
+		       	$(document).ready(function(){
+		       	    $('#studentsTable').DataTable();
+		       	});
+	       	</script>
+	       	<div th:replace = "fragments/fragment :: footer" ></div>
+		</div>
+    </body>
+    <script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" src="/js/datatables.min.js"></script>
+		<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+</html>
